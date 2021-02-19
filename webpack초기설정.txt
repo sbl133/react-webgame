@@ -1,0 +1,26 @@
+1. 노드랑 npm이 깔려있어야 된다.
+2. npm init : 초기설정
+3. npm i react react-dom : npm으로 react랑 react-dom을 설치
+4. npm i -D webpack webpack-cli : webpack설치(-D는 개발전용)
+5. webpack.config.js 파일 생성(module.exports setting)
+6. client.jsx파일 생성(ReactDom.render)
+7. index.html 파일 생성(root)
+8. webpack명령어를 등록 or
+   package.json에 scripts에서 "dev":"webpack"추가 or
+   npx webpack
+9. npm i -D @babel/core (최신문법으로 변환)
+   npm i -D @babel/preset-env (환경에 맞게 babel로 맞춰줌)
+   npm i -D @babel/preset-react (jsx 쓸수있게해줌)
+   npm i babel-loader (babel이랑 webpack연결)
+
+핫리로딩 package
+npm i react-refresh @pmmmwh/react-refresh-webpack-plugin -D
+refresh랑 plugin설치 안해도 리로딩(새로고침시 변경된 데이터 반영)은 되지만
+ 핫리로딩(새로고침 없이 변경된 데이터 반영)은 안된다.
+개발용 서버설치
+npm i -D webpack-dev-server 
+"dev": "webpack serve --env development"
+plugins : new RefreshWebpackPlugin()
+devsever : webpack.config대로 빌드돌린다음 명시해준 폴더에 저장
+	옵션값 hot으로 변경점을 인식하고 자동저장기능 제공
+module loader plugins에 'react-refresh/babel'추가
