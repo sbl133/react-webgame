@@ -70,6 +70,7 @@ const reducer = (state, action)=>{
             return{
                 ...state,
                 openedCount: 0,
+                result: "",
                 data: {
                     row: action.row,
                     cell: action.cell,
@@ -82,7 +83,7 @@ const reducer = (state, action)=>{
         case OPEN_CELL:
             const tableData=[...state.tableData];
             tableData.forEach((row, i)=>{
-                tableData[i] = [...state.tableData[i]];
+                tableData[i] = [...row];
             });
             const checked = [];
             let openedcount = 0;
@@ -144,7 +145,7 @@ const reducer = (state, action)=>{
                         if(tableData[n[0]][n[1]] !== CODE.OPENED){
                         checkArround(n[0], n[1]);
                         }
-                    });
+                    })
                 }
                 tableData[row][cell] = count;
             };
@@ -166,6 +167,7 @@ const reducer = (state, action)=>{
             const tableData=[...state.tableData];
             tableData[action.row]=[...state.tableData[action.row]];
             tableData[action.row][action.cell] = CODE.CLICKED_MINE;
+            console.log("CLCIKED_MINE");
             return{
                 ...state,
                 tableData,
@@ -228,10 +230,11 @@ const reducer = (state, action)=>{
 const MineSearch = () =>{
     const [state, dispatch] = useReducer(reducer, initialState);
     const {tableData, halted, timer, result} = state;
-    const value = useMemo(()=>({ tableData: tableData, halted: halted, dispatch }),[tableData, halted])
+    const value = useMemo(()=>({ tableData, halted, dispatch }),[tableData, halted])
 
     useEffect(()=>{
         let timer;
+        console.log(halted);
         if(halted === false){
             timer = setInterval(()=>{
                 dispatch({type: INCREMENT_TIMER});
@@ -246,9 +249,9 @@ const MineSearch = () =>{
         // value에 새로 할당된 객체가 들어가고 provider 안에있는 componenet들이 모두 리렌더링된다.?
         <TableContext.Provider value={value}> 
         <Form/>
-        <div>{state.timer}</div>
+        <div>count : {state.timer+"초"}</div>
         <Table/>
-        <div>{state.result}</div>
+        <div>{state.halted&&state.result}</div>
         </TableContext.Provider>
     )
 };

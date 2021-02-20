@@ -50,8 +50,9 @@ const getTdText = (code) =>{
 const Td = memo(({rowIndex, cellIndex}) =>{
     const {tableData, dispatch, halted} = useContext(TableContext);
     const onClickTd = useCallback(() => {
+        console.log(halted);
         if(halted){
-            return ;
+            return;
         }
         switch(tableData[rowIndex][cellIndex]){
             case CODE.OPENED:
@@ -59,6 +60,7 @@ const Td = memo(({rowIndex, cellIndex}) =>{
             case CODE.FLAG:
             case CODE.QUESTION_MINE:
             case CODE.QUESTION:
+                return;
             case CODE.NORMAL:
                 dispatch({type: OPEN_CELL, row: rowIndex, cell: cellIndex});
                 return;
@@ -91,6 +93,6 @@ const Td = memo(({rowIndex, cellIndex}) =>{
             onContextMenu={onRightClickTd}>
             {getTdText(tableData[rowIndex][cellIndex])}
         </td>
-    ), [tableData[rowIndex][cellIndex]]);
+    ), [tableData[rowIndex][cellIndex], halted]);
 });
 export default Td;
