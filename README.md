@@ -1,2 +1,2 @@
 # webgame-react
-This repositories refer to https://github.com/ZeroCho/react-webgame
+This repositories refer to /ZeroCho/react-webgame
